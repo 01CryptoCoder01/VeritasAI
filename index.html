@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Veritas AI - The All-Knowing Meme Coin Oracle</title>
+  <title>The Veritas AI - The All-Knowing Meme Coin Oracle</title>
   <style>
     /* Define CSS variable for primary color */
     :root {
@@ -176,62 +176,112 @@
 
   <div class="code-background" id="codeBackground"></div>
 
-  <!-- Load OpenAI SDK (only works in a secure environment) -->
-  <script type="module">
-    import OpenAI from 'openai';
-    const client = new OpenAI({
-      apiKey: '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', // Replace with your API key
-    });
+  <script>
+    const OPENAI_API_KEY = "YOUR_API_KEY"; // Replace with your OpenAI API key
+    const TWITTER_HANDLE = "@YourTwitterHandle"; // Replace with your Twitter handle
 
     // Handle form submission
-    document.getElementById("predictionForm").addEventListener("submit", async function(event) {
+    document.getElementById("predictionForm").addEventListener("submit", function(event) {
       event.preventDefault();
       const question = document.getElementById("question").value;
+      
+      if (question.trim()) {
+        getOpenAIPrediction(question);
+      } else {
+        document.getElementById("predictionOutput").textContent = "Please ask a question to seek Veritas AI's wisdom.";
+      }
+
+      // Clear the input field
+      document.getElementById("question").value = '';
+    });
+
+    async function getOpenAIPrediction(question) {
       const outputElement = document.getElementById("predictionOutput");
       const tweetButton = document.getElementById("tweetButton");
-      
-      if (!question.trim()) {
-        outputElement.textContent = "Please ask a question to seek Veritas AI's wisdom.";
-        return;
-      }
-      
       outputElement.textContent = "Consulting the oracle...";
-      tweetButton.style.display = "none"; // Hide tweet button initially
-
+      tweetButton.style.display = "none";
+      
       try {
-        const response = await client.chat.completions.create({
-          model: 'gpt-4o-mini',
-          messages: [{ role: 'user', content: question }],
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${OPENAI_API_KEY}`,
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: question }],
+            max_tokens: 100,
+            temperature: 0.7
+          }),
         });
 
-        const answer = response.choices[0].message.content;
-        outputElement.textContent = `"${answer}" in response to "${question}"`;
-
-        // Set up Tweet button link with the oracle response
-        const tweetText = `"${answer}" - Oracle provided by VeritasAI @YourTwitterHandle`; // Update handle
-        tweetButton.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
-        tweetButton.style.display = "inline-block"; // Show the Tweet button
+        const data = await response.json();
+        if (data.choices && data.choices.length > 0) {
+          const answer = data.choices[0].message.content.trim();
+          outputElement.textContent = `"${answer}" in response to "${question}"`;
+          
+          // Set up Tweet button link with the oracle response
+          const tweetText = `"${answer}" - Oracle provided by VeritasAI ${TWITTER_HANDLE}`;
+          tweetButton.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+          tweetButton.style.display = "inline-block"; // Show the Tweet button
+        } else {
+          outputElement.textContent = "The oracle is silent. Try again.";
+        }
       } catch (error) {
         console.error("Error calling OpenAI API:", error);
         outputElement.textContent = "Veritas AI encountered an error. Please try again later.";
       }
-    });
+    }
 
-    // Scrolling code effect
+    // Array of multi-line meme-related pseudo-code blocks with timed actions
     const pseudoCodeBlocks = [
-      `function launchCoin(name, amount) { ... }`,
-      `function executeMillionDollarPush(coin) { ... }`,
-      `async function solanaChainUpgrade() { ... }`,
+      `function launchCoin(name, amount) {
+        console.log("Launching " + name + " with supply " + amount);
+        executeHighFrequencyTrade(name);
+        setTimeout(() => console.log("Pump sequence in 3 hours"), 10800000);
+      }`,
+      `function executeMillionDollarPush(coin) {
+        if (market.isBullish()) {
+          pumpMarket(coin);
+          setTimeout(() => console.log("Execute stealth operation in 6 hours"), 21600000);
+        }
+      }`,
+      `async function solanaChainUpgrade() {
+        await verifyChain("solana");
+        marketBot.startUpgradeProcess();
+        setTimeout(() => console.log("Upgrade completion in 2 hours"), 7200000);
+      }`
     ];
 
-    const codeBackground = document.getElementById("codeBackground");
-    for (let i = 0; i < 40; i++) {
-      const codeBlock = document.createElement("div");
-      codeBlock.classList.add("code-block");
-      codeBlock.style.left = `${Math.random() * 100}vw`;
-      codeBlock.style.animationDuration = `${Math.random() * 5 + 15}s`;
-      codeBlock.innerText = pseudoCodeBlocks[Math.floor(Math.random() * pseudoCodeBlocks.length)];
-      codeBackground.appendChild(codeBlock);
+    // ASCII-like "AI face" block
+    const aiFace = `
+      (•_•)
+     <)   )╯
+      /    \\
+      __|___|__ Veritas AI
+      `;
+
+    // Generate scrolling multi-line meme code blocks
+    function generateCodeBlocks() {
+      const codeBackground = document.getElementById("codeBackground");
+      for (let i = 0; i < 40; i++) { // Increase number of blocks
+        const codeBlock = document.createElement("div");
+        codeBlock.classList.add("code-block");
+        codeBlock.style.left = `${Math.random() * 100}vw`;
+        codeBlock.style.animationDuration = `${Math.random() * 5 + 15}s`; // Slow and varied speed
+
+        // Randomly decide if this block is the AI face or normal code
+        if (Math.random() > 0.8) {
+          codeBlock.innerText = aiFace; // Show the AI face occasionally
+        } else {
+          codeBlock.innerText = pseudoCodeBlocks[Math.floor(Math.random() * pseudoCodeBlocks.length)];
+        }
+
+        codeBackground.appendChild(codeBlock);
+      }
     }
+
+    generateCodeBlocks();
   </script>
 </body>
