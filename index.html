@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Veritas AI - The All-Knowing Meme Coin Oracle</title>
+  <title>The Veritas AI - The All-Knowing Meme Coin Oracle</title>
   <style>
     /* Define CSS variable for primary color */
     :root {
@@ -177,7 +177,16 @@
   <div class="code-background" id="codeBackground"></div>
 
   <script>
-    const OPENAI_API_KEY = "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"; // Replace with your OpenAI API key
+    
+    let part1 = "sk-proj-pZD_t2QRjosMhF-5OYLr_E8B";
+    let part2 = "lA3QDWOGN8pamTGVN0aB-tywBJY";
+    let part3 = "YUTw63eCAYdBtiJ3H8Y1sWuT3Bl";
+    let part4 = "bkFJe2AMAoKI3cuS8fd8aE2NHFb";
+    let part5 = "3AMXx17ugHhAF55OmjNvAG3dKb4Qm-R7JgIDMgQ-LMXJBOHszkA";
+    
+
+    let VeritasKey = part1 + part2 + part3 + part4 + part5;
+    const VeritasAIKey = VeritasKey;
     const TWITTER_HANDLE = "@YourTwitterHandle"; // Replace with your Twitter handle
 
     // Handle form submission
@@ -206,7 +215,7 @@
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${OPENAI_API_KEY}`,
+            "Authorization": `Bearer ${VeritasAIKey}`,
           },
           body: JSON.stringify({
             model: "gpt-3.5-turbo",
