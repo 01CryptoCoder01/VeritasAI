@@ -1,3 +1,4 @@
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -266,39 +267,41 @@
       }`
     ];
 
-    // ASCII-like "AI face" block
-    const aiFace = `
-      (•_•)
-     <)   )╯
-      /    \\
-      __|___|__ Veritas AI
-      `;
+	// ASCII-like "AI face" block
+	const aiFace = `
+	  (•_•)
+	 <)   )╯
+	  /    \\
+	  __|___|__ Veritas AI
+	`;
 
-    // Generate scrolling multi-line meme code blocks
-	function generateCodeBlocks() {
+	// Function to generate and animate the AI face
+	function generateAIFace() {
 	  const codeBackground = document.getElementById("codeBackground");
-	
-	  for (let i = 0; i < 40; i++) { // Increase number of blocks
-	    const codeBlock = document.createElement("div");
-	    codeBlock.classList.add("code-block");
-	    
-	    // Randomize starting position, delay, and duration for each block
-	    codeBlock.style.left = `${Math.random() * 100}vw`;
-	    codeBlock.style.animationDuration = `${Math.random() * 5 + 10}s`; // Duration between 10s and 15s
-	    codeBlock.style.animationDelay = `${Math.random() * 5}s`; // Delay up to 5 seconds
-	
-	    // Randomly decide if this block is the AI face or normal code
-	    if (Math.random() > 0.8) {
-	      codeBlock.innerText = aiFace; // Show the AI face occasionally
-	    } else {
-	      codeBlock.innerText = pseudoCodeBlocks[Math.floor(Math.random() * pseudoCodeBlocks.length)];
-	    }
-	
-	    codeBackground.appendChild(codeBlock);
+
+	  // Create a single moving AI face block
+	  const aiFaceBlock = document.createElement("div");
+	  aiFaceBlock.classList.add("code-block");
+	  aiFaceBlock.innerText = aiFace; // Only the AI face is displayed
+
+	  // Apply styles for random movement across the screen
+	  function moveAIFace() {
+		aiFaceBlock.style.left = `${Math.random() * 100}vw`;
+		aiFaceBlock.style.top = `${Math.random() * 100}vh`;
 	  }
+
+	  // Initial random placement
+	  moveAIFace();
+	  codeBackground.appendChild(aiFaceBlock);
+
+	  // Move the AI face to a new position every 2-5 seconds
+	  setInterval(moveAIFace, Math.random() * 3000 + 500);
 	}
-	
-	generateCodeBlocks();
+
+	// Call the function to start the AI face animation
+	generateAIFace();
+
 
   </script>
 </body>
+
