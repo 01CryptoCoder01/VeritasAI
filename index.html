@@ -275,25 +275,30 @@
       `;
 
     // Generate scrolling multi-line meme code blocks
-    function generateCodeBlocks() {
-      const codeBackground = document.getElementById("codeBackground");
-      for (let i = 0; i < 40; i++) { // Increase number of blocks
-        const codeBlock = document.createElement("div");
-        codeBlock.classList.add("code-block");
-        codeBlock.style.left = `${Math.random() * 100}vw`;
-        codeBlock.style.animationDuration = `${Math.random() * 5 + 15}s`; // Slow and varied speed
+	function generateCodeBlocks() {
+	  const codeBackground = document.getElementById("codeBackground");
+	
+	  for (let i = 0; i < 40; i++) { // Increase number of blocks
+	    const codeBlock = document.createElement("div");
+	    codeBlock.classList.add("code-block");
+	    
+	    // Randomize starting position, delay, and duration for each block
+	    codeBlock.style.left = `${Math.random() * 100}vw`;
+	    codeBlock.style.animationDuration = `${Math.random() * 5 + 10}s`; // Duration between 10s and 15s
+	    codeBlock.style.animationDelay = `${Math.random() * 5}s`; // Delay up to 5 seconds
+	
+	    // Randomly decide if this block is the AI face or normal code
+	    if (Math.random() > 0.8) {
+	      codeBlock.innerText = aiFace; // Show the AI face occasionally
+	    } else {
+	      codeBlock.innerText = pseudoCodeBlocks[Math.floor(Math.random() * pseudoCodeBlocks.length)];
+	    }
+	
+	    codeBackground.appendChild(codeBlock);
+	  }
+	}
+	
+	generateCodeBlocks();
 
-        // Randomly decide if this block is the AI face or normal code
-        if (Math.random() > 0.8) {
-          codeBlock.innerText = aiFace; // Show the AI face occasionally
-        } else {
-          codeBlock.innerText = pseudoCodeBlocks[Math.floor(Math.random() * pseudoCodeBlocks.length)];
-        }
-
-        codeBackground.appendChild(codeBlock);
-      }
-    }
-
-    generateCodeBlocks();
   </script>
 </body>
