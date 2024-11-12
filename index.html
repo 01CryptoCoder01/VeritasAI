@@ -1,8 +1,7 @@
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Veritas AI - The All-Knowing Meme Coin Oracle</title>
+  <title>Veritas AI</title>
   <style>
     /* Define CSS variable for primary color */
     :root {
@@ -152,6 +151,20 @@
         transform: translateY(100vh);
       }
     }
+	
+	  /* Add this CSS to style the prediction output box */
+	  .prediction-output {
+		margin-top: 1em;
+		font-style: italic;
+		color: #e94560;
+		background-color: #1b1b2f; /* Non-transparent background */
+		padding: 1em;
+		border-radius: 8px;
+		max-width: 500px; /* Restricts width for readability */
+		text-align: center;
+		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Adds a subtle shadow */
+	  }
+
   </style>
 </head>
 <body>
@@ -164,11 +177,11 @@
 
   <!-- Main Content Container -->
   <div class="content-container">
-    <h1>Veritas AI - The All-Knowing Meme Coin Oracle</h1>
+    <h1>Veritas AI</h1><br>
     <form id="predictionForm">
       <input type="text" id="question" placeholder="Ask Veritas AI a question...">
       <button type="submit">Reveal Wisdom</button>
-    </form>
+    </form><br>
     <div class="prediction-output" id="predictionOutput">Awaiting your question...</div>
     <!-- Tweet Button -->
     <a href="#" target="_blank" id="tweetButton" class="tweet-button" style="display: none;">Tweet This</a>
@@ -219,7 +232,10 @@
           },
           body: JSON.stringify({
             model: "gpt-3.5-turbo",
-            messages: [{ role: "user", content: question }],
+            messages: [
+				  { role: "system", content: "Provide sarcastic wiseguy answers to all questions.  Talk in the context of a degen meme coin investor. Keep all replies under 100 characters so they can be tweeted." },
+				  { role: "user", content: question }
+				],
             max_tokens: 100,
             temperature: 0.7
           }),
@@ -228,7 +244,7 @@
         const data = await response.json();
         if (data.choices && data.choices.length > 0) {
           const answer = data.choices[0].message.content.trim();
-          outputElement.textContent = `"${answer}" in response to "${question}"`;
+          outputElement.textContent = `"${answer}"`;
           
           // Set up Tweet button link with the oracle response
           const tweetText = `"${answer}" - Oracle provided by VeritasAI ${TWITTER_HANDLE}`;
