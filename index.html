@@ -1,0 +1,237 @@
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veritas AI - The All-Knowing Meme Coin Oracle</title>
+  <style>
+    /* Define CSS variable for primary color */
+    :root {
+      --primary-color: #ffc300; /* Change this value to update both the h1 and link colors */
+    }
+
+    /* Basic styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0d0d0d;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    /* Content Container */
+    .content-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 0.5em;
+      color: var(--primary-color);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input[type="text"] {
+      padding: 0.5em;
+      width: 300px;
+      margin-bottom: 0.5em;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 0.5em 1em;
+      font-size: 1em;
+      background-color: #4ecca3;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #1b1b2f;
+    }
+
+    button:hover {
+      background-color: #3ca58d;
+    }
+
+    .prediction-output {
+      margin-top: 1em;
+      font-style: italic;
+      color: #e94560;
+    }
+
+    /* Tweet button styling */
+    .tweet-button {
+      margin-top: 10px;
+      padding: 0.5em 1em;
+      font-size: 1em;
+      background-color: #4ecca3;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #1b1b2f;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .tweet-button:hover {
+      background-color: #3ca58d;
+    }
+
+    /* Corner Links Styling */
+    .corner-link {
+      position: absolute;
+      color: var(--primary-color); /* Solid color to match h1 */
+      text-decoration: none;
+      font-size: 1em;
+      padding: 10px;
+      background-color: rgba(34, 40, 49, 0.8); /* 80% transparent background */
+      border-radius: 5px;
+      z-index: 3; /* Higher z-index to place above the falling code */
+    }
+    
+    /* Position each link in a corner with spacing */
+    .top-left {
+      top: 20px;
+      left: 20px;
+    }
+    
+    .top-right {
+      top: 20px;
+      right: 20px;
+    }
+    
+    .bottom-left {
+      bottom: 20px;
+      left: 20px;
+    }
+    
+    .bottom-right {
+      bottom: 20px;
+      right: 20px;
+    }
+
+    /* Background meme code effect */
+    .code-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0d0d0d;
+      overflow: hidden;
+      z-index: 0;
+      opacity: 0.7;
+    }
+
+    .code-block {
+      position: absolute;
+      color: rgba(0, 255, 0, 0.8);
+      font-family: monospace;
+      font-size: 14px;
+      animation: scroll 15s linear infinite;
+      white-space: nowrap;
+    }
+
+    /* Animation for scrolling code */
+    @keyframes scroll {
+      0% {
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(100vh);
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Corner Links with padding and transparency -->
+  <a href="https://dexscreener.com" target="_blank" class="corner-link top-left">Dexscreener</a>
+  <a href="https://twitter.com" target="_blank" class="corner-link top-right">Twitter</a>
+  <a href="https://www.placeholder.com" target="_blank" class="corner-link bottom-left">Placeholder 1</a>
+  <a href="https://www.placeholder.com" target="_blank" class="corner-link bottom-right">Placeholder 2</a>
+
+  <!-- Main Content Container -->
+  <div class="content-container">
+    <h1>Veritas AI - The All-Knowing Meme Coin Oracle</h1>
+    <form id="predictionForm">
+      <input type="text" id="question" placeholder="Ask Veritas AI a question...">
+      <button type="submit">Reveal Wisdom</button>
+    </form>
+    <div class="prediction-output" id="predictionOutput">Awaiting your question...</div>
+    <!-- Tweet Button -->
+    <a href="#" target="_blank" id="tweetButton" class="tweet-button" style="display: none;">Tweet This</a>
+  </div>
+
+  <div class="code-background" id="codeBackground"></div>
+
+  <!-- Load OpenAI SDK (only works in a secure environment) -->
+  <script type="module">
+    import OpenAI from 'openai';
+    const client = new OpenAI({
+      apiKey: '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', // Replace with your API key
+    });
+
+    // Handle form submission
+    document.getElementById("predictionForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+      const question = document.getElementById("question").value;
+      const outputElement = document.getElementById("predictionOutput");
+      const tweetButton = document.getElementById("tweetButton");
+      
+      if (!question.trim()) {
+        outputElement.textContent = "Please ask a question to seek Veritas AI's wisdom.";
+        return;
+      }
+      
+      outputElement.textContent = "Consulting the oracle...";
+      tweetButton.style.display = "none"; // Hide tweet button initially
+
+      try {
+        const response = await client.chat.completions.create({
+          model: 'gpt-4o-mini',
+          messages: [{ role: 'user', content: question }],
+        });
+
+        const answer = response.choices[0].message.content;
+        outputElement.textContent = `"${answer}" in response to "${question}"`;
+
+        // Set up Tweet button link with the oracle response
+        const tweetText = `"${answer}" - Oracle provided by VeritasAI @YourTwitterHandle`; // Update handle
+        tweetButton.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+        tweetButton.style.display = "inline-block"; // Show the Tweet button
+      } catch (error) {
+        console.error("Error calling OpenAI API:", error);
+        outputElement.textContent = "Veritas AI encountered an error. Please try again later.";
+      }
+    });
+
+    // Scrolling code effect
+    const pseudoCodeBlocks = [
+      `function launchCoin(name, amount) { ... }`,
+      `function executeMillionDollarPush(coin) { ... }`,
+      `async function solanaChainUpgrade() { ... }`,
+    ];
+
+    const codeBackground = document.getElementById("codeBackground");
+    for (let i = 0; i < 40; i++) {
+      const codeBlock = document.createElement("div");
+      codeBlock.classList.add("code-block");
+      codeBlock.style.left = `${Math.random() * 100}vw`;
+      codeBlock.style.animationDuration = `${Math.random() * 5 + 15}s`;
+      codeBlock.innerText = pseudoCodeBlocks[Math.floor(Math.random() * pseudoCodeBlocks.length)];
+      codeBackground.appendChild(codeBlock);
+    }
+  </script>
+</body>
