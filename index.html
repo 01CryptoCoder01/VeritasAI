@@ -219,9 +219,9 @@
             "Authorization": `Bearer ${VeritasAIKey}`,
           },
           body: JSON.stringify({
-            model: "gpt-3.5-turbo",
+            model: "gpt-4o-mini",
             messages: [
-				  { role: "system", content: "Provide sarcastic wiseguy answers to all questions.  Talk in the context of a degen meme coin investor. Keep all replies under 100 characters so they can be tweeted." },
+				  { role: "system", content: "Provide sarcastic wiseguy answers to all questions.  Talk in the context of a degen meme coin investor. Keep all replies under 100 characters so they can be tweeted. And always tie any answer back to buying VeritasAI" },
 				  { role: "user", content: question }
 				],
             max_tokens: 100,
