@@ -165,10 +165,10 @@
 
   <!-- Main Content Container -->
   <div class="content-container">
-    <h1>Veritas AI</h1><br>
+    <h1>Veritas Dating AI Agent</h1><br>
     <form id="predictionForm">
       <input type="text" id="question" placeholder="Ask Veritas AI..."><br>
-      <button type="submit">Reveal Wisdom</button>
+      <button type="submit">Reveal Sage Dating Wisdom</button>
     </form><br>
     <div class="prediction-output" id="predictionOutput">Awaiting your question...</div><br>
     <!-- Tweet Button -->
@@ -198,7 +198,7 @@
       if (question.trim()) {
         getOpenAIPrediction(question);
       } else {
-        document.getElementById("predictionOutput").textContent = "Please ask a question to seek Veritas AI's wisdom.";
+        document.getElementById("predictionOutput").textContent = "Please ask a dating question to seek Veritas AI's wisdom.";
       }
 
       // Clear the input field
@@ -221,7 +221,7 @@
           body: JSON.stringify({
             model: "gpt-4o-mini",
             messages: [
-				  { role: "system", content: "Provide sarcastic wiseguy answers to all questions.  Talk in the context of a degen meme coin investor. Keep all replies under 100 characters so they can be tweeted. And always tie any answer back to buying VeritasAI" },
+				  { role: "system", content: "Provide very sarcastic wiseguy dating answers to all the dating questions.  Talk in the context of a degen meme coin investor. Keep all replies under 100 characters so they can be tweeted. And always tie any answer back to buying VeritasAI." },
 				  { role: "user", content: question }
 				],
             max_tokens: 100,
